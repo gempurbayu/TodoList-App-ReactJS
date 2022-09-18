@@ -17,6 +17,27 @@ class App extends React.Component {
       },
     ]
   }
+  deleteTask = id => {
+    this.setState({
+      todos: this.state.todos.filter(item => item.id !== id)
+    })
+    alert("delete ok")
+  }
+
+  addTask = data => {
+    const id = this.state.todos.length
+    const newData = {
+      id: id + 1,
+      title: data
+
+    }
+
+    this.setState({
+      todos: [...this.state.todos, newData]
+    })
+    alert("add ok")
+  }
+
   render(){
     const { todos } = this.state;
 
@@ -28,11 +49,11 @@ class App extends React.Component {
         </div>
         <div className='list'>
           {todos.map(item =>
-            <TodoItem key={item.id} todo={item}/>
+            <TodoItem key={item.id} todo={item} del={this.deleteTask}/>
           )}
         </div>
         <div className='input-form'>
-          <FormInput/>
+          <FormInput add={this.addTask}/>
         </div>
       </div>
     )
